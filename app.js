@@ -8,83 +8,24 @@ const teamLabels = {
   power: "Team Renewables",
 };
 
-const pageCss = `
-#summit-app, #summit-app * { box-sizing: border-box; }
-#summit-app { min-height: 100vh; margin: 0; font-family: Manrope, "Segoe UI", sans-serif; background: #eef3f8; color: #10243d; line-height: 1.5; }
-#summit-app button, #summit-app select, #summit-app input { font: inherit; }
-#summit-app button { cursor: pointer; }
-#summit-app button:disabled { cursor: not-allowed; }
-#summit-app .hero { position: relative; overflow: hidden; color: #fff; text-align: center; }
-#summit-app .hero-photo { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
-#summit-app .hero-scrim { position: absolute; inset: 0; background: linear-gradient(135deg, rgba(0,113,197,.9), rgba(0,90,158,.88) 52%, rgba(0,60,116,.92)); }
-#summit-app .hero-content { position: relative; max-width: 48rem; margin: 0 auto; padding: 3.5rem 1.25rem 4.5rem; }
-#summit-app .intel-logo { height: 2.75rem; margin: 0 auto 1.5rem; filter: brightness(0) invert(1); }
-#summit-app h1 { margin: 0; font-family: "Barlow Condensed", "Arial Narrow", sans-serif; font-size: clamp(2.4rem, 6vw, 3.4rem); font-weight: 700; letter-spacing: .04em; text-transform: uppercase; text-wrap: balance; }
-#summit-app .hero-divider { width: 6rem; height: 2px; margin: 1.25rem auto; background: #00aeef; }
-#summit-app .hero p { margin: 0; font-size: 1.15rem; font-weight: 300; }
-#summit-app .wrap { width: min(100% - 1.5rem, 44rem); margin: -1.5rem auto 0; padding-bottom: 2.5rem; }
-#summit-app .panel { padding: 1.75rem 1.25rem 2rem; background: #fff; border: 1px solid #e2e8f0; border-radius: 1rem; box-shadow: 0 18px 50px -28px rgba(0,60,116,.55); }
-#summit-app .attendance-header { display: flex; gap: .4rem; align-items: baseline; justify-content: center; margin: 0; color: #5c6e86; }
-#summit-app .count, #summit-app .percent { color: #0071c5; font-weight: 800; font-variant-numeric: tabular-nums; }
-#summit-app .count { font-size: 1.6rem; }
-#summit-app .progress-container { width: min(100%, 32rem); height: 1rem; margin: 1rem auto 0; overflow: hidden; background: #e2e8f0; border-radius: 999px; }
-#summit-app .progress-bar { width: 0%; height: 100%; background: linear-gradient(90deg, #0071c5, #00aeef); border-radius: 999px; transition: width .6s ease; }
-#summit-app .greeting { margin: 1.5rem 0 0; padding: .85rem 1rem; text-align: center; font-weight: 600; color: #003c71; background: #e8f4fc; border-radius: .6rem; }
-#summit-app .celebration { margin: 1.5rem 0 0; padding: 1.25rem 1rem; text-align: center; color: #fff; background: #003c74; border-radius: .8rem; }
-#summit-app .celebration .kicker { margin: 0; color: #00aeef; font-size: .75rem; font-weight: 700; letter-spacing: .18em; text-transform: uppercase; }
-#summit-app .celebration strong { display: block; margin-top: .35rem; font-family: "Barlow Condensed", "Arial Narrow", sans-serif; font-size: 2.4rem; font-weight: 700; letter-spacing: .04em; text-transform: uppercase; }
-#summit-app .celebration .detail { margin: .45rem 0 0; color: rgba(255,255,255,.82); font-size: .95rem; }
-#summit-app .check-in { margin-top: 1.5rem; padding: 1.25rem; background: #f7fafc; border-radius: 1rem; }
-#summit-app .form-label { display: block; margin-bottom: .75rem; color: #5c6e86; font-size: .9rem; font-weight: 600; }
-#summit-app .form-group, #summit-app .input-wrapper { display: flex; gap: .75rem; }
-#summit-app .input-wrapper { flex: 1; min-width: 0; }
-#summit-app input, #summit-app select { height: 3.5rem; padding: 0 1rem; color: #10243d; background: #fff; border: 2px solid #e2e8f0; border-radius: .75rem; }
-#summit-app input { flex: 1; min-width: 0; }
-#summit-app select { min-width: 11rem; }
-#summit-app input:focus, #summit-app select:focus { outline: none; border-color: #0071c5; }
-#summit-app .check-in-btn { height: 3.5rem; padding: 0 1.4rem; color: #fff; font-weight: 700; background: #0071c5; border: 0; border-radius: .75rem; white-space: nowrap; }
-#summit-app .check-in-btn:hover:not(:disabled) { background: #005a9e; }
-#summit-app .check-in-btn:disabled, #summit-app input:disabled, #summit-app select:disabled { opacity: .6; }
-#summit-app .team-stats, #summit-app .attendees { margin-top: 2rem; padding-top: 1.6rem; border-top: 1px solid #e2e8f0; }
-#summit-app h2 { margin: 0; color: #5c6e86; font-size: .8rem; font-weight: 700; letter-spacing: .08em; text-align: center; text-transform: uppercase; }
-#summit-app .teams-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: .75rem; margin-top: 1rem; }
-#summit-app .team-card { display: flex; flex-direction: column; gap: .35rem; padding: 1rem; border-radius: .75rem; }
-#summit-app .team-card.water { color: #0b6e91; background: #e7f6fb; }
-#summit-app .team-card.zero { color: #0f7a4b; background: #e8f8ef; }
-#summit-app .team-card.power { color: #b45309; background: #fff6e8; }
-#summit-app .team-card.leading { box-shadow: inset 0 0 0 2px currentColor; }
-#summit-app .team-count { font-size: 1.8rem; font-weight: 800; font-variant-numeric: tabular-nums; }
-#summit-app .attendees-head { display: flex; align-items: center; justify-content: space-between; gap: .75rem; }
-#summit-app .attendees-head h2 { text-align: left; }
-#summit-app .reset-btn, #summit-app .remove-btn { border: 0; background: transparent; color: #5c6e86; font-weight: 700; }
-#summit-app .reset-btn { font-size: .9rem; }
-#summit-app .reset-btn:hover:not(:disabled), #summit-app .remove-btn:hover { color: #0071c5; }
-#summit-app .attendee-list { margin: 1rem 0 0; padding: 0; overflow: auto; max-height: 20rem; list-style: none; border: 1px solid #e2e8f0; border-radius: .75rem; }
-#summit-app .attendee-list:empty { display: none; }
-#summit-app .attendee-list li { display: flex; align-items: center; justify-content: space-between; gap: .75rem; padding: .8rem 1rem; border-top: 1px solid #e2e8f0; }
-#summit-app .attendee-list li:first-child { border-top: 0; }
-#summit-app .person { min-width: 0; }
-#summit-app .person strong { display: block; }
-#summit-app .person span { color: #5c6e86; font-size: .9rem; }
-#summit-app .remove-btn { font-size: .85rem; }
-#summit-app .empty { margin: 1rem 0 0; padding: 2rem 1rem; text-align: center; color: #5c6e86; border: 1px dashed #e2e8f0; border-radius: .75rem; }
-#summit-app .footer { padding: 0 1rem 2.5rem; text-align: center; color: #5c6e86; font-size: .9rem; }
-#summit-app .footer a { color: inherit; }
-#summit-app .footer a:hover { color: #0071c5; }
-@media (max-width: 720px) {
-  #summit-app .form-group, #summit-app .input-wrapper { flex-direction: column; }
-  #summit-app .teams-grid { grid-template-columns: 1fr; }
-  #summit-app .check-in-btn, #summit-app select, #summit-app input { width: 100%; }
-}
-@media (prefers-reduced-motion: reduce) {
-  #summit-app .progress-bar { transition: none; }
-}
-`;
+const teamColors = {
+  water: { color: "#0b6e91", backgroundColor: "#e7f6fb" },
+  zero: { color: "#0f7a4b", backgroundColor: "#e8f8ef" },
+  power: { color: "#b45309", backgroundColor: "#fff6e8" },
+};
 
-function element(tag, className, text) {
+function element(tag, text) {
   const node = document.createElement(tag);
-  if (className) node.className = className;
+  node.style.boxSizing = "border-box";
   if (text) node.textContent = text;
+  return node;
+}
+
+function paint(node, rules) {
+  const keys = Object.keys(rules);
+  for (let i = 0; i < keys.length; i++) {
+    node.style[keys[i]] = rules[keys[i]];
+  }
   return node;
 }
 
@@ -98,152 +39,364 @@ export function mountSummit(root) {
       ? { bg: "/summit/bg.jpg", logo: "/summit/intel-logo.svg" }
       : { bg: "img/bg.jpg", logo: "img/intel-logo.svg" };
 
-  let style = document.getElementById("summit-styles");
-  if (!style) {
-    style = document.createElement("style");
-    style.id = "summit-styles";
-    style.textContent = pageCss;
-    document.head.appendChild(style);
-  }
-
-  if (!document.getElementById("summit-fonts")) {
-    const fonts = document.createElement("link");
-    fonts.id = "summit-fonts";
-    fonts.rel = "stylesheet";
-    fonts.href =
-      "https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;700&family=Manrope:wght@400;500;600;700;800&display=swap";
-    document.head.appendChild(fonts);
+  if (root === document.body) {
+    document.body.style.margin = "0";
   }
 
   root.replaceChildren();
   const app = element("div");
   app.id = "summit-app";
+  paint(app, {
+    minHeight: "100vh",
+    margin: "0",
+    fontFamily: '"Segoe UI", Helvetica, Arial, sans-serif',
+    backgroundColor: "#eef3f8",
+    color: "#10243d",
+    lineHeight: "1.5",
+  });
   root.appendChild(app);
 
-  const hero = element("header", "hero");
+  const hero = element("header");
+  paint(hero, { position: "relative", overflow: "hidden", color: "#ffffff", textAlign: "center" });
   const photo = document.createElement("img");
-  photo.className = "hero-photo";
   photo.alt = "";
   photo.src = assets.bg;
-  const scrim = element("div", "hero-scrim");
-  const heroContent = element("div", "hero-content");
+  paint(photo, {
+    position: "absolute",
+    top: "0",
+    right: "0",
+    bottom: "0",
+    left: "0",
+    width: "100%",
+    height: "100%",
+    objectFit: "cover",
+  });
+  const scrim = element("div");
+  paint(scrim, {
+    position: "absolute",
+    top: "0",
+    right: "0",
+    bottom: "0",
+    left: "0",
+    backgroundImage:
+      "linear-gradient(135deg, rgba(0,113,197,0.9), rgba(0,90,158,0.88) 52%, rgba(0,60,116,0.92))",
+  });
+  const heroContent = element("div");
+  paint(heroContent, {
+    position: "relative",
+    maxWidth: "48rem",
+    margin: "0 auto",
+    padding: "3.5rem 1.25rem 4.5rem",
+  });
   const logo = document.createElement("img");
-  logo.className = "intel-logo";
   logo.alt = "Intel";
   logo.src = assets.logo;
-  const title = element("h1", "", "Team Sustainability Summit");
-  const divider = element("div", "hero-divider");
-  const subtitle = element("p", "", "Check-in for sustainability event attendees");
+  paint(logo, {
+    display: "block",
+    height: "2.75rem",
+    margin: "0 auto 1.5rem",
+    filter: "brightness(0) invert(1)",
+  });
+  const title = element("h1", "Team Sustainability Summit");
+  paint(title, {
+    margin: "0",
+    fontFamily: '"Arial Narrow", Impact, sans-serif',
+    fontWeight: "700",
+    letterSpacing: "0.04em",
+    textTransform: "uppercase",
+    lineHeight: "1.05",
+  });
+  const divider = element("div");
+  paint(divider, { width: "6rem", height: "2px", margin: "1.25rem auto", backgroundColor: "#00aeef" });
+  const subtitle = element("p", "Check-in for sustainability event attendees");
+  paint(subtitle, { margin: "0", fontSize: "1.15rem", fontWeight: "300" });
   heroContent.append(logo, title, divider, subtitle);
   hero.append(photo, scrim, heroContent);
 
-  const wrap = element("main", "wrap");
-  const panel = element("section", "panel");
+  const wrap = element("main");
+  const panel = element("section");
+  paint(panel, {
+    padding: "1.75rem 1.25rem 2rem",
+    backgroundColor: "#ffffff",
+    border: "1px solid #e2e8f0",
+    borderRadius: "1rem",
+    boxShadow: "0 18px 50px -28px rgba(0,60,116,0.55)",
+  });
 
-  const attendance = element("p", "attendance-header", "Attendance ");
-  const countEl = element("span", "count", "0");
+  const attendance = element("p", "Attendance ");
+  paint(attendance, {
+    display: "flex",
+    gap: "0.4rem",
+    alignItems: "baseline",
+    justifyContent: "center",
+    margin: "0",
+    color: "#5c6e86",
+  });
+  const countEl = element("span", "0");
   countEl.id = "attendeeCount";
-  const ofGoal = document.createTextNode(" / " + maxAttendees + " ");
-  const percentEl = element("span", "percent", "0%");
+  paint(countEl, { color: "#0071c5", fontWeight: "800", fontSize: "1.6rem", fontVariantNumeric: "tabular-nums" });
+  const percentEl = element("span", "0%");
   percentEl.id = "percentLabel";
-  attendance.append(countEl, ofGoal, percentEl);
+  paint(percentEl, { color: "#0071c5", fontWeight: "800", fontVariantNumeric: "tabular-nums" });
+  attendance.append(countEl, document.createTextNode(" / " + maxAttendees + " "), percentEl);
 
-  const track = element("div", "progress-container");
+  const track = element("div");
   track.id = "progressTrack";
   track.setAttribute("role", "progressbar");
   track.setAttribute("aria-valuemin", "0");
   track.setAttribute("aria-valuemax", "100");
   track.setAttribute("aria-valuenow", "0");
   track.setAttribute("aria-label", "Share of the attendance goal");
-  const bar = element("div", "progress-bar");
+  paint(track, {
+    width: "min(100%, 32rem)",
+    height: "1rem",
+    margin: "1rem auto 0",
+    overflow: "hidden",
+    backgroundColor: "#e2e8f0",
+    borderRadius: "999px",
+  });
+  const bar = element("div");
   bar.id = "progressBar";
+  paint(bar, {
+    width: "0%",
+    height: "100%",
+    backgroundImage: "linear-gradient(90deg, #0071c5, #00aeef)",
+    borderRadius: "999px",
+  });
   track.appendChild(bar);
 
-  const celebration = element("div", "celebration");
+  const celebration = element("div");
   celebration.id = "celebration";
   celebration.hidden = true;
-  const greeting = element("p", "greeting");
+  paint(celebration, {
+    marginTop: "1.5rem",
+    padding: "1.25rem 1rem",
+    textAlign: "center",
+    color: "#ffffff",
+    backgroundColor: "#003c74",
+    borderRadius: "0.8rem",
+  });
+  const greeting = element("p");
   greeting.id = "greeting";
   greeting.hidden = true;
+  paint(greeting, {
+    margin: "1.5rem 0 0",
+    padding: "0.85rem 1rem",
+    textAlign: "center",
+    fontWeight: "600",
+    color: "#003c71",
+    backgroundColor: "#e8f4fc",
+    borderRadius: "0.6rem",
+  });
 
   const form = document.createElement("form");
-  form.className = "check-in";
   form.id = "checkInForm";
-  const label = element("label", "form-label", "Attendee check-in");
+  paint(form, { marginTop: "1.5rem", padding: "1.25rem", backgroundColor: "#f7fafc", borderRadius: "1rem" });
+  const label = element("label", "Attendee check-in");
   label.htmlFor = "attendeeName";
-  const formGroup = element("div", "form-group");
-  const inputs = element("div", "input-wrapper");
+  paint(label, { display: "block", marginBottom: "0.75rem", color: "#5c6e86", fontSize: "0.9rem", fontWeight: "600" });
+  const formGroup = element("div");
+  const inputs = element("div");
+  paint(inputs, { flex: "1", minWidth: "0" });
   const nameInput = document.createElement("input");
   nameInput.id = "attendeeName";
-  nameInput.name = "attendeeName";
   nameInput.type = "text";
   nameInput.placeholder = "Enter name...";
   nameInput.maxLength = 60;
   nameInput.required = true;
   const teamSelect = document.createElement("select");
   teamSelect.id = "teamSelect";
-  teamSelect.name = "team";
   teamSelect.required = true;
-  const placeholder = element("option", "", "Select team...");
+  const placeholder = element("option", "Select team...");
   placeholder.value = "";
   placeholder.disabled = true;
   placeholder.selected = true;
   teamSelect.appendChild(placeholder);
   const teamIds = ["water", "zero", "power"];
   for (let i = 0; i < teamIds.length; i++) {
-    const option = element("option", "", teamLabels[teamIds[i]]);
+    const option = element("option", teamLabels[teamIds[i]]);
     option.value = teamIds[i];
     teamSelect.appendChild(option);
   }
-  const checkInBtn = element("button", "check-in-btn", "Check in");
+  const checkInBtn = element("button", "Check in");
   checkInBtn.id = "checkInBtn";
   checkInBtn.type = "submit";
+  paint(checkInBtn, {
+    height: "3.5rem",
+    padding: "0 1.4rem",
+    color: "#ffffff",
+    fontWeight: "700",
+    backgroundColor: "#0071c5",
+    border: "0",
+    borderRadius: "0.75rem",
+    whiteSpace: "nowrap",
+    cursor: "pointer",
+  });
+  checkInBtn.addEventListener("mouseenter", function () {
+    if (!checkInBtn.disabled) checkInBtn.style.backgroundColor = "#005a9e";
+  });
+  checkInBtn.addEventListener("mouseleave", function () {
+    checkInBtn.style.backgroundColor = "#0071c5";
+  });
   inputs.append(nameInput, teamSelect);
   formGroup.append(inputs, checkInBtn);
   form.append(label, formGroup);
 
-  const teamSection = element("section", "team-stats");
-  teamSection.appendChild(element("h2", "", "Team attendance"));
-  const grid = element("div", "teams-grid");
+  function fieldLook(node) {
+    paint(node, {
+      height: "3.5rem",
+      padding: "0 1rem",
+      color: "#10243d",
+      backgroundColor: "#ffffff",
+      border: "2px solid #e2e8f0",
+      borderRadius: "0.75rem",
+      font: "inherit",
+    });
+    node.addEventListener("focus", function () {
+      node.style.borderColor = "#0071c5";
+      node.style.outline = "none";
+    });
+    node.addEventListener("blur", function () {
+      node.style.borderColor = "#e2e8f0";
+    });
+  }
+  fieldLook(nameInput);
+  fieldLook(teamSelect);
+  paint(nameInput, { flex: "1", minWidth: "0" });
+
+  const teamSection = element("section");
+  paint(teamSection, { marginTop: "2rem", paddingTop: "1.6rem", borderTop: "1px solid #e2e8f0" });
+  const teamHeading = element("h2", "Team attendance");
+  paint(teamHeading, {
+    margin: "0",
+    color: "#5c6e86",
+    fontSize: "0.8rem",
+    fontWeight: "700",
+    letterSpacing: "0.08em",
+    textAlign: "center",
+    textTransform: "uppercase",
+  });
+  const grid = element("div");
+  paint(grid, { display: "grid", gap: "0.75rem", marginTop: "1rem" });
   const cards = {};
   const counts = {};
   const shorts = { water: "Water Wise", zero: "Net Zero", power: "Renewables" };
   for (let i = 0; i < teamIds.length; i++) {
     const id = teamIds[i];
-    const card = element("article", "team-card " + id);
+    const card = element("article");
     card.id = id + "Card";
-    const count = element("span", "team-count", "0");
+    paint(card, {
+      display: "flex",
+      flexDirection: "column",
+      gap: "0.35rem",
+      padding: "1rem",
+      borderRadius: "0.75rem",
+      color: teamColors[id].color,
+      backgroundColor: teamColors[id].backgroundColor,
+    });
+    const count = element("span", "0");
     count.id = id + "Count";
-    card.append(element("span", "team-name", shorts[id]), count);
+    paint(count, { fontSize: "1.8rem", fontWeight: "800", fontVariantNumeric: "tabular-nums" });
+    card.append(element("span", shorts[id]), count);
     cards[id] = card;
     counts[id] = count;
     grid.appendChild(card);
   }
-  teamSection.appendChild(grid);
+  teamSection.append(teamHeading, grid);
 
-  const listSection = element("section", "attendees");
-  const listHead = element("div", "attendees-head");
-  const resetBtn = element("button", "reset-btn", "Reset roster");
+  const listSection = element("section");
+  paint(listSection, { marginTop: "2rem", paddingTop: "1.6rem", borderTop: "1px solid #e2e8f0" });
+  const listHead = element("div");
+  paint(listHead, { display: "flex", alignItems: "center", justifyContent: "space-between", gap: "0.75rem" });
+  const listHeading = element("h2", "Attendees");
+  paint(listHeading, {
+    margin: "0",
+    color: "#5c6e86",
+    fontSize: "0.8rem",
+    fontWeight: "700",
+    letterSpacing: "0.08em",
+    textTransform: "uppercase",
+  });
+  const resetBtn = element("button", "Reset roster");
   resetBtn.id = "resetBtn";
   resetBtn.type = "button";
   resetBtn.disabled = true;
-  listHead.append(element("h2", "", "Attendees"), resetBtn);
-  const list = element("ul", "attendee-list");
+  paint(resetBtn, {
+    border: "0",
+    backgroundColor: "transparent",
+    color: "#5c6e86",
+    fontWeight: "700",
+    fontSize: "0.9rem",
+    cursor: "not-allowed",
+  });
+  resetBtn.addEventListener("mouseenter", function () {
+    if (!resetBtn.disabled) resetBtn.style.color = "#0071c5";
+  });
+  resetBtn.addEventListener("mouseleave", function () {
+    resetBtn.style.color = "#5c6e86";
+  });
+  listHead.append(listHeading, resetBtn);
+  const list = element("ul");
   list.id = "attendeeList";
-  const empty = element("p", "empty", "No attendees yet. Add a name and a team to start the count.");
+  paint(list, {
+    margin: "1rem 0 0",
+    padding: "0",
+    overflow: "auto",
+    maxHeight: "20rem",
+    listStyle: "none",
+    border: "1px solid #e2e8f0",
+    borderRadius: "0.75rem",
+  });
+  const empty = element("p", "No attendees yet. Add a name and a team to start the count.");
   empty.id = "emptyList";
+  paint(empty, {
+    margin: "1rem 0 0",
+    padding: "2rem 1rem",
+    textAlign: "center",
+    color: "#5c6e86",
+    border: "1px dashed #e2e8f0",
+    borderRadius: "0.75rem",
+  });
   listSection.append(listHead, list, empty);
 
   panel.append(attendance, track, celebration, greeting, form, teamSection, listSection);
   wrap.appendChild(panel);
 
-  const footer = element("footer", "footer");
+  const footer = element("footer");
+  paint(footer, { padding: "1.25rem 1rem 2.5rem", textAlign: "center", color: "#5c6e86", fontSize: "0.9rem" });
   footer.appendChild(document.createTextNode("Team Sustainability Summit · "));
-  const goals = element("a", "", "Sustainability goals");
+  const goals = element("a", "Sustainability goals");
   goals.href = "https://www.intel.com/content/www/us/en/corporate-responsibility/2030-goals.html";
+  paint(goals, { color: "inherit" });
+  goals.addEventListener("mouseenter", function () {
+    goals.style.color = "#0071c5";
+  });
+  goals.addEventListener("mouseleave", function () {
+    goals.style.color = "inherit";
+  });
   footer.appendChild(goals);
-
   app.append(hero, wrap, footer);
+
+  function applyLayout() {
+    const narrow = window.matchMedia("(max-width: 720px)").matches;
+    const motion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    const titlePx = Math.max(38, Math.min(54, window.innerWidth * 0.06));
+    title.style.fontSize = titlePx + "px";
+    paint(wrap, {
+      width: narrow ? "calc(100% - 1.5rem)" : "min(100% - 1.5rem, 44rem)",
+      margin: "-1.5rem auto 0",
+      paddingBottom: "0.5rem",
+    });
+    paint(formGroup, { display: "flex", gap: "0.75rem", flexDirection: narrow ? "column" : "row" });
+    paint(inputs, { display: "flex", gap: "0.75rem", flex: "1", minWidth: "0", flexDirection: narrow ? "column" : "row" });
+    nameInput.style.width = narrow ? "100%" : "";
+    teamSelect.style.width = narrow ? "100%" : "";
+    teamSelect.style.minWidth = narrow ? "0" : "11rem";
+    checkInBtn.style.width = narrow ? "100%" : "";
+    grid.style.gridTemplateColumns = narrow ? "1fr" : "repeat(3, 1fr)";
+    bar.style.transition = motion ? "none" : "width 0.6s ease";
+    if (list.childElementCount === 0) list.style.display = "none";
+  }
 
   let attendees = [];
 
@@ -328,28 +481,45 @@ export function mountSummit(root) {
       const team = teamIds[i];
       counts[team].textContent = String(countForTeam(team));
       const solo = winning.length === 1 && winning[0].team === team && winning[0].count > 0;
-      cards[team].classList.toggle("leading", solo);
+      cards[team].style.boxShadow = solo ? "inset 0 0 0 2px " + teamColors[team].color : "none";
     }
 
     celebration.replaceChildren();
     if (full && winning.length > 0) {
-      let title = "";
+      let winTitle = "";
       let detail = "";
       if (winning.length === 1) {
-        title = teamLabels[winning[0].team] + " wins";
+        winTitle = teamLabels[winning[0].team] + " wins";
         detail = winning[0].count + " attendees checked in. The goal of " + maxAttendees + " is complete.";
       } else {
         const names = [];
         for (let i = 0; i < winning.length; i++) names.push(teamLabels[winning[i].team]);
-        title = names.join(" and ") + " tie";
+        winTitle = names.join(" and ") + " tie";
         detail = "Each has " + winning[0].count + " attendees. The goal of " + maxAttendees + " is complete.";
       }
       celebration.hidden = false;
-      celebration.append(
-        element("p", "kicker", "Goal reached"),
-        element("strong", "", title),
-        element("p", "detail", detail),
-      );
+      const kicker = element("p", "Goal reached");
+      paint(kicker, {
+        margin: "0",
+        color: "#00aeef",
+        fontSize: "0.75rem",
+        fontWeight: "700",
+        letterSpacing: "0.18em",
+        textTransform: "uppercase",
+      });
+      const heading = element("strong", winTitle);
+      paint(heading, {
+        display: "block",
+        marginTop: "0.35rem",
+        fontFamily: '"Arial Narrow", Impact, sans-serif',
+        fontSize: "2.4rem",
+        fontWeight: "700",
+        letterSpacing: "0.04em",
+        textTransform: "uppercase",
+      });
+      const note = element("p", detail);
+      paint(note, { margin: "0.45rem 0 0", color: "rgba(255,255,255,0.82)", fontSize: "0.95rem" });
+      celebration.append(kicker, heading, note);
     } else {
       celebration.hidden = true;
     }
@@ -358,16 +528,49 @@ export function mountSummit(root) {
     teamSelect.disabled = full;
     checkInBtn.disabled = full;
     resetBtn.disabled = total === 0;
+    nameInput.style.opacity = full ? "0.6" : "1";
+    teamSelect.style.opacity = full ? "0.6" : "1";
+    checkInBtn.style.opacity = full ? "0.6" : "1";
+    checkInBtn.style.cursor = full ? "not-allowed" : "pointer";
+    resetBtn.style.cursor = total === 0 ? "not-allowed" : "pointer";
+    resetBtn.style.opacity = total === 0 ? "0.4" : "1";
 
     list.replaceChildren();
     for (let i = attendees.length - 1; i >= 0; i--) {
       const person = attendees[i];
-      const item = document.createElement("li");
-      const text = element("div", "person");
+      const item = element("li");
+      paint(item, {
+        display: "flex",
+        alignItems: "center",
+        justifyContent: "space-between",
+        gap: "0.75rem",
+        padding: "0.8rem 1rem",
+        borderTop: i === attendees.length - 1 ? "0" : "1px solid #e2e8f0",
+      });
+      const text = element("div");
+      paint(text, { minWidth: "0" });
       const when = new Date(person.at).toLocaleTimeString([], { hour: "numeric", minute: "2-digit" });
-      text.append(element("strong", "", person.name), element("span", "", teamLabels[person.team] + " · " + when));
-      const remove = element("button", "remove-btn", "Remove");
+      const personName = element("strong", person.name);
+      paint(personName, { display: "block" });
+      const personTeam = element("span", teamLabels[person.team] + " · " + when);
+      paint(personTeam, { color: "#5c6e86", fontSize: "0.9rem" });
+      text.append(personName, personTeam);
+      const remove = element("button", "Remove");
       remove.type = "button";
+      paint(remove, {
+        border: "0",
+        backgroundColor: "transparent",
+        color: "#5c6e86",
+        fontWeight: "700",
+        fontSize: "0.85rem",
+        cursor: "pointer",
+      });
+      remove.addEventListener("mouseenter", function () {
+        remove.style.color = "#0071c5";
+      });
+      remove.addEventListener("mouseleave", function () {
+        remove.style.color = "#5c6e86";
+      });
       remove.addEventListener("click", function () {
         const next = [];
         for (let n = 0; n < attendees.length; n++) {
@@ -380,7 +583,9 @@ export function mountSummit(root) {
       item.append(text, remove);
       list.appendChild(item);
     }
-    empty.hidden = total !== 0;
+    const hasPeople = total !== 0;
+    empty.hidden = hasPeople;
+    list.style.display = hasPeople ? "block" : "none";
   }
 
   form.addEventListener("submit", function (event) {
@@ -413,9 +618,12 @@ export function mountSummit(root) {
   });
 
   attendees = loadAttendees();
+  applyLayout();
   render();
+  window.addEventListener("resize", applyLayout);
 
   return function cleanup() {
+    window.removeEventListener("resize", applyLayout);
     root.replaceChildren();
   };
 }

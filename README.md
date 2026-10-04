@@ -1,10 +1,10 @@
 # Summit Check-In
 
-Team Sustainability Summit check-in, built in one JavaScript file.
+Team Sustainability Summit check-in, written only in JavaScript.
 
-`index.html` only starts the page. The layout, styles, and check-in behavior are all in `app.js`.
+`app.js` creates the page, sets every style with JavaScript, and runs the check-in. There is no CSS file. `index.html` exists only so a browser can start `app.js`.
 
-Open `index.html` in a browser. No install step.
+Open `index.html` in a browser.
 
 - Greeting uses the attendee name and full team name
 - Total attendance counts toward a goal of 50, with a progress bar
