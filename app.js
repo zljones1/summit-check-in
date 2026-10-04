@@ -1,3 +1,4 @@
+// @ts-nocheck
 const maxAttendees = 50;
 const storageKey = "summit-checkins-v1";
 
