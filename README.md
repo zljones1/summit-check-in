@@ -1,6 +1,8 @@
 # Summit Check-In
 
-Check-in page for the Team Sustainability Summit.
+Team Sustainability Summit check-in, built in one JavaScript file.
+
+`index.html` only starts the page. The layout, styles, and check-in behavior are all in `app.js`.
 
 Open `index.html` in a browser. No install step.
 

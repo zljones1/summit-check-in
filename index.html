@@ -2,107 +2,10 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>Summit Check-In · Team Sustainability Summit</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;700&family=Manrope:wght@400;500;600;700;800&display=swap"
-      rel="stylesheet"
-    />
-    <link rel="stylesheet" href="style.css" />
   </head>
   <body>
-    <header class="hero">
-      <img src="img/bg.jpg" alt="" class="hero-photo" />
-      <div class="hero-scrim"></div>
-      <div class="hero-content">
-        <img src="img/intel-logo.svg" alt="Intel" class="intel-logo" />
-        <h1>Team Sustainability Summit</h1>
-        <div class="hero-divider"></div>
-        <p>Check-in for sustainability event attendees</p>
-      </div>
-    </header>
-
-    <main class="wrap">
-      <section class="panel">
-        <p class="attendance-header">
-          Attendance
-          <span id="attendeeCount">0</span>
-          / <span id="goalCount">50</span>
-          <span id="percentLabel">0%</span>
-        </p>
-        <div
-          class="progress-container"
-          role="progressbar"
-          aria-valuemin="0"
-          aria-valuemax="100"
-          aria-valuenow="0"
-          id="progressTrack"
-          aria-label="Share of the attendance goal"
-        >
-          <div id="progressBar" class="progress-bar"></div>
-        </div>
-
-        <div id="celebration" class="celebration" hidden></div>
-        <p id="greeting" class="greeting" hidden></p>
-
-        <form class="check-in" id="checkInForm">
-          <label for="attendeeName" class="form-label">Attendee check-in</label>
-          <div class="form-group">
-            <div class="input-wrapper">
-              <input
-                type="text"
-                id="attendeeName"
-                name="attendeeName"
-                placeholder="Enter name..."
-                maxlength="60"
-                required
-              />
-              <select id="teamSelect" name="team" required>
-                <option value="" disabled selected>Select team...</option>
-                <option value="water">Team Water Wise</option>
-                <option value="zero">Team Net Zero</option>
-                <option value="power">Team Renewables</option>
-              </select>
-            </div>
-            <button type="submit" id="checkInBtn">Check in</button>
-          </div>
-        </form>
-
-        <section class="team-stats">
-          <h2>Team attendance</h2>
-          <div class="teams-grid">
-            <article class="team-card water" id="waterCard">
-              <span class="team-name">Water Wise</span>
-              <span class="team-count" id="waterCount">0</span>
-            </article>
-            <article class="team-card zero" id="zeroCard">
-              <span class="team-name">Net Zero</span>
-              <span class="team-count" id="zeroCount">0</span>
-            </article>
-            <article class="team-card power" id="powerCard">
-              <span class="team-name">Renewables</span>
-              <span class="team-count" id="powerCount">0</span>
-            </article>
-          </div>
-        </section>
-
-        <section class="attendees">
-          <div class="attendees-head">
-            <h2>Attendees</h2>
-            <button type="button" id="resetBtn" disabled>Reset roster</button>
-          </div>
-          <ul id="attendeeList"></ul>
-          <p id="emptyList" class="empty">No attendees yet. Add a name and a team to start the count.</p>
-        </section>
-      </section>
-    </main>
-
-    <footer class="footer">
-      Team Sustainability Summit ·
-      <a href="https://www.intel.com/content/www/us/en/corporate-responsibility/2030-goals.html">Sustainability goals</a>
-    </footer>
-    <script src="script.js"></script>
+    <script type="module" src="app.js"></script>
   </body>
 </html>
